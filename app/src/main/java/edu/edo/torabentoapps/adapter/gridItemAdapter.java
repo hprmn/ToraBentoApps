@@ -2,12 +2,15 @@ package edu.edo.torabentoapps.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +23,16 @@ import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import com.roughike.bottombar.BottomBar;
 import com.squareup.picasso.Picasso;
 import edu.edo.torabentoapps.Model.DataArray;
 import edu.edo.torabentoapps.Model.itemModel;
+import edu.edo.torabentoapps.Model.transaksiModel;
 import edu.edo.torabentoapps.R;
 import edu.edo.torabentoapps.fragment.TransaksiFragment;
 
@@ -65,6 +71,7 @@ public class gridItemAdapter extends RecyclerView.Adapter<gridItemAdapter.ViewHo
         viewHolder.status.setText(iModel.getKetersediaan());
         viewHolder.harga.setText(nf.format(Double.valueOf(iModel.getHarga())));
         viewHolder.stok.setText("Stok : "+iModel.getStok());
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -111,13 +118,22 @@ public class gridItemAdapter extends RecyclerView.Adapter<gridItemAdapter.ViewHo
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     //masuk ke transaksi fragment dengan item yang dipilih
+
+                                    SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("itemTransaksi",Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    Set<String> makanan;
+                                    makanan.add(iModel.getNmMakanan());
+                                    editor.putStringSet("namaMakanan",makanan);
+                                    //editor.apply();
                                     //tess
-                                    TransaksiFragment frag = new TransaksiFragment ();
-                                    FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
-                                    FragmentTransaction fragmentTransaction =  fragmentManager.beginTransaction();
-                                    fragmentTransaction.replace(R.id.content, frag);
-                                    fragmentTransaction.commit();
+                                    //Toast.makeText(v.getContext(),itemModel.getNmMakanan(), Toast.LENGTH_LONG).show();
+                                    //TransaksiFragment frag = new TransaksiFragment ();
+                                    //FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
+                                    //FragmentTransaction fragmentTransaction =  fragmentManager.beginTransaction();
+                                    //fragmentTransaction.replace(R.id.content, frag);
+                                    //fragmentTransaction.commit();
                                    // List<transaksiModel> lt = new ArrayList<transaksiModel>();
+
 
                                     bottomBar = (BottomBar)((Activity) v.getContext()).findViewById(R.id.bottombar);
                                     bottomBar.selectTabAtPosition(1);

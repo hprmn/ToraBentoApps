@@ -83,7 +83,7 @@ public class transaksiItemAdapter2 extends RecyclerView.Adapter<transaksiItemAda
             quantityItem = (TextView)itemView.findViewById(R.id.quantityitem);
             timestamp = (TextView)itemView.findViewById(R.id.timestamp);
             //status = (TextView)itemView.findViewById(R.id.statuspemesanan);
-            hapus = (BootstrapButton)itemView.findViewById(R.id.hapustransaksi);
+            //hapus = (BootstrapButton)itemView.findViewById(R.id.hapustransaksi);
             totalharga = (TextView)itemView.findViewById(R.id.totalharga);
             alamatkirim = (TextView)itemView.findViewById(R.id.alamatkirim);
             thumbnailsItem = (ImageView)itemView.findViewById(R.id.thumbnailsitem);

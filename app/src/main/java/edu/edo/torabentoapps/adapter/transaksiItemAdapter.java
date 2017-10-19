@@ -1,6 +1,7 @@
 package edu.edo.torabentoapps.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.edo.torabentoapps.Model.itemModel;
 import edu.edo.torabentoapps.Model.transaksiModel;
 import edu.edo.torabentoapps.R;
 
@@ -22,11 +24,14 @@ import edu.edo.torabentoapps.R;
  */
 
 public class transaksiItemAdapter extends RecyclerView.Adapter<transaksiItemAdapter.holderTransaksi> {
-
+    private List<itemModel> model;
+    private Context konteks;
     List<transaksiModel> data;
 
-    public transaksiItemAdapter() {
+    public transaksiItemAdapter(List<itemModel> model, Context konteks) {
         super();
+        this.model = model;
+        this.konteks = konteks;
         data = new ArrayList<transaksiModel>();
         transaksiModel item = new transaksiModel();
         item.setTransaksiID("#ID91283123");
@@ -52,10 +57,10 @@ public class transaksiItemAdapter extends RecyclerView.Adapter<transaksiItemAdap
 
     @Override
     public void onBindViewHolder(holderTransaksi holder, int position) {
-
+        final itemModel itemModel = model.get(position);
         transaksiModel item = data.get(position);
         holder.transaksiID.setText(item.getTransaksiID());
-        holder.namamakanan.setText(item.getNamamakanan());
+        holder.namamakanan.setText(itemModel.getNmMakanan());
         holder.quantityItem.setText(""+item.getQuantity());
         holder.thumbnailsItem.setImageResource(item.getThumbnails());
         holder.totalharga.setText("Rp. "+item.getTotalharga());
@@ -84,7 +89,7 @@ public class transaksiItemAdapter extends RecyclerView.Adapter<transaksiItemAdap
             quantityItem = (TextView)itemView.findViewById(R.id.quantityitem);
             timestamp = (TextView)itemView.findViewById(R.id.timestamp);
             //status = (TextView)itemView.findViewById(R.id.statuspemesanan);
-            hapus = (BootstrapButton)itemView.findViewById(R.id.hapustransaksi);
+            //hapus = (BootstrapButton)itemView.findViewById();
             totalharga = (TextView)itemView.findViewById(R.id.totalharga);
             alamatkirim = (TextView)itemView.findViewById(R.id.alamatkirim);
             thumbnailsItem = (ImageView)itemView.findViewById(R.id.thumbnailsitem);
